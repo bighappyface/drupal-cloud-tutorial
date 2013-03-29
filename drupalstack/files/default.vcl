@@ -9,38 +9,21 @@
 # These are used below to allow internal access to certain files while not
 # allowing access from the public internet.
 acl internal {
-  "192.10.0.0"/24;
+  "127.0.0.1";
 }
 
 # Define the list of backends (web servers).
 # Port 80 Backend Servers
-backend web1 { .host = "192.10.0.1"; .probe = { .url = "/status.php"; .interval = 5s; .timeout = 1s; .window = 5;.threshold = 3; }}
-backend web2 { .host = "192.10.0.2"; .probe = { .url = "/status.php"; .interval = 5s; .timeout = 1s; .window = 5;.threshold = 3; }}
-
-# Port 443 Backend Servers for SSL
-backend web1_ssl { .host = "192.10.0.1"; .port = "443"; .probe = { .url = "/status.php"; .interval = 5s; .timeout = 1 s; .window = 5;.threshold = 3; }}
-backend web2_ssl { .host = "192.10.0.2"; .port = "443"; .probe = { .url = "/status.php"; .interval = 5s; .timeout = 1 s; .window = 5;.threshold = 3; }}
+backend web1 { .host = "127.0.0.1"; .probe = { .url = "/status.php"; .interval = 5s; .timeout = 1s; .window = 5;.threshold = 3; }}
 
 # Define the director that determines how to distribute incoming requests.
 director default_director round-robin {
   { .backend = web1; }
-  { .backend = web2; }
-}
-
-director ssl_director round-robin {
-  { .backend = web1_ssl; }
-  { .backend = web2_ssl; }
 }
 
 # Respond to incoming requests.
 sub vcl_recv {
-  # Set the director to cycle between web servers.
-  if (server.port == 443) {
-    set req.backend = ssl_director;
-  }
-  else {
-   set req.backend = default_director;
-  }
+  set req.backend = default_director;
 
   # Use anonymous, cached pages if all backends are down.
   if (!req.backend.healthy) {

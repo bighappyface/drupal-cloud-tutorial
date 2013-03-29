@@ -1,18 +1,9 @@
 class drupalstack::varnish {
-  exec { 'setup-varnish-repo':
-    command => 'rpm -Uvh http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm',
-    path    => ['/bin'],
-    creates => '/usr/sbin/varnishd',
-  }
-
-  package { 'varnish':
-    ensure  => present,
-    require => Exec['setup-varnish-repo'],
-  }
+  package { 'varnish': ensure => present, }
 
   file { 'varnish-vcl':
     path    => '/etc/varnish/default.vcl',
-    source  => 'puppet:///modules/drupalstack/varnish',
+    source  => 'puppet:///modules/drupalstack/default.vcl',
     ensure  => present,
     require => Package['varnish'],
   }
