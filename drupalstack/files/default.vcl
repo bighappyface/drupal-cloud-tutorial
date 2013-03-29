@@ -79,7 +79,7 @@ sub vcl_recv {
   }
 
   # Always cache the following file types for all users.
-  if (req.url ~ "(?i)\.(png|gif|jpeg|jpg|ico|swf|css|js|html|htm)(\?[a-z0-9]+)?$") {
+  if (req.url ~ "(?i)\.(png|gif|jpeg|jpg|ico|swf|css|js|html|htm)(\?[a-z0-9\=\.]+)?$") {
     unset req.http.Cookie;
   }
 
@@ -121,7 +121,7 @@ sub vcl_hash {
 # Code determining what to do when serving items from the Apache servers.
 sub vcl_fetch {
   # Don't allow static files to set cookies.
-  if (req.url ~ "(?i)\.(png|gif|jpeg|jpg|ico|swf|css|js|html|htm)(\?[a-z0-9]+)?$") {
+  if (req.url ~ "(?i)\.(png|gif|jpeg|jpg|ico|swf|css|js|html|htm)(\?[a-z0-9\=\.]+)?$") {
     # beresp == Back-end response from the web server.
     unset beresp.http.set-cookie;
   }
@@ -162,4 +162,12 @@ sub vcl_error {
 </html>
 "};
   return (deliver);
+}
+
+sub vcl_deliver {
+	if (obj.hits > 0) {
+		set resp.http.V-Cache = "HIT";
+	} else {
+		set resp.http.V-Cache = "MISS";
+	}
 }
