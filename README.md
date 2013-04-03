@@ -10,7 +10,7 @@ These steps will show take you from a fresh server instance to a fully functiona
 
 A cloud account is **not** required. A local virtual machine, remote virtual machine, or even dedicated physical server can be used. This tutorial focuses more on automation, deployment, and development paradigms; however, DBaaS and other cloud-related services are used for demonstration.
 
-If you do not have a cloud account it is [free to sign for the Rackspace Cloud](https://cart.rackspace.com/cloud/).
+If you do not have a cloud account it is [free to sign up for the Rackspace Cloud](https://cart.rackspace.com/cloud/).
 
 ## Tools and components used
 
@@ -23,7 +23,15 @@ If you do not have a cloud account it is [free to sign for the Rackspace Cloud](
 
 ## Prerequisites
 
+1. A fresh cloud server instance (or other server) running Ubuntu, with root or sudo access.
 
+[Rackspace Cloud Essentials 2 - Creating A Cloud Server](http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-2-creating-a-cloud-server)
+
+2. A fresh database (Rackspace cloud database recommended). Have the host and user credentials handy.
+
+[Cloud Databases - How It Works](http://www.rackspace.com/cloud/databases/howitworks/)
+
+That's it! Now that you have these items, lets begin.
 
 ## Steps
 
