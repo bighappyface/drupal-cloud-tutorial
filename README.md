@@ -23,11 +23,11 @@ If you do not have a cloud account it is [free to sign up for the Rackspace Clou
 
 ## Prerequisites
 
-1. A fresh cloud server instance (or other server) running Ubuntu, with root or sudo access.
+- A fresh cloud server instance (or other server) running Ubuntu, with root or sudo access.
 
 [Rackspace Cloud Essentials 2 - Creating A Cloud Server](http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-2-creating-a-cloud-server)
 
-2. A fresh database (Rackspace cloud database recommended). Have the host and user credentials handy.
+- A fresh database (Rackspace cloud database recommended). Have the host and user credentials handy.
 
 [Cloud Databases - How It Works](http://www.rackspace.com/cloud/databases/howitworks/)
 
@@ -41,11 +41,15 @@ That's it! Now that you have these items, lets begin.
 apt-get update
 ```
 
+Updating your package manager ensures you have access to the latest packages.
+
 ### 2. Install Puppet
 
 ```bash
 apt-get install puppet-common
 ```
+
+Puppet is available via the common repos. Installation is easy and our *drupalstack* puppet module is ready to go once downloaded.
 
 ### 3. Install git
 
@@ -53,17 +57,23 @@ apt-get install puppet-common
 apt-get install git
 ```
 
+We will need git to clone this repo and obtain the base Drupal application code and *drupalstack* Puppet module.
+
 ### 4. Clone this repo
 
 ```bash
 git clone https://github.com/bighappyface/drupal-cloud-tutorial.git
 ```
 
+Now that we have the code we can configure this server to run our Drupal application.
+
 ### 5. Copy our drupalstack module to the Puppet modules folder
 
 ```bash
 cp -r drupal-cloud-tutorial/drupalstack /etc/puppet/modules/
 ```
+
+All Puppet modules from the [Puppet Forge](http://forge.puppetlabs.com/) will be installed here as well.
 
 ### 6. Install Apache and configure
 
