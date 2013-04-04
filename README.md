@@ -46,7 +46,7 @@ Updating your package manager ensures you have access to the latest packages.
 ### 2. Install Puppet
 
 ```bash
-apt-get install puppet-common
+apt-get install puppet
 ```
 
 Puppet is available via the common repos. Installation is easy and our *drupalstack* puppet module is ready to go once downloaded.
@@ -54,7 +54,7 @@ Puppet is available via the common repos. Installation is easy and our *drupalst
 ### 3. Install git
 
 ```bash
-apt-get install git
+apt-get install git-core
 ```
 
 We will need git to clone this repo and obtain the base Drupal application code and *drupalstack* Puppet module.
@@ -70,7 +70,7 @@ Now that we have the code we can configure this server to run our Drupal applica
 ### 5. Copy our drupalstack module to the Puppet modules folder
 
 ```bash
-cp -r drupal-cloud-tutorial/drupalstack /etc/puppet/modules/
+cp -r drupal-cloud-tutorial/drupalstack /etc/puppet/modules/drupalstack
 ```
 
 All Puppet modules from the [Puppet Forge](http://forge.puppetlabs.com/) will be installed here as well.
@@ -78,23 +78,23 @@ All Puppet modules from the [Puppet Forge](http://forge.puppetlabs.com/) will be
 ### 6. Install Apache and configure
 
 ```bash
-puppet apply -e "class{'drupalstack::apache':}"
+puppet apply -e "include drupalstack::apache"
 ```
 
 ### 7. Install PHP
 
 ```bash
-puppet apply -e "class{'drupalstack::php':}"
+puppet apply -e "include drupalstack::php"
 ```
 
 ### 8. Install and centralize Drupal core
 
 ```bash
-puppet apply -e "class{'drupalstack::drupalcore':}"
+puppet apply -e "include drupalstack::drupalcore"
 ```
 
 ### 9. Configure our Drupal application
 
 ```bash
-puppet apply -e "class{'drupalstack::drupalreqs':}"
+puppet apply -e "include drupalstack::drupalapp"
 ```
