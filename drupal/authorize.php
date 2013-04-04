@@ -1,1 +1,0 @@
-/opt/DrupalCore/current/authorize.php

@@ -1,1 +1,0 @@
-/opt/DrupalCore/current/install.php
