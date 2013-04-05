@@ -93,7 +93,13 @@ puppet apply -e "include drupalstack::php"
 puppet apply -e "include drupalstack::drupalcore"
 ```
 
-### 9. Configure our Drupal application
+### 9. Copy our Drupal application
+
+```bash
+cp -r drupal-cloud-tutorial/drupalstack/files/drupal /var/www/drupal
+```
+
+### 10. Configure our Drupal requirements
 
 ```bash
 puppet apply -e "include drupalstack::drupalapp"
