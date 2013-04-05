@@ -18,7 +18,8 @@ class drupalstack::apache {
   }
 
   exec { '/usr/sbin/a2enmod rewrite':
-    unless => '/bin/readlink -e /etc/apache2/mods-enabled/rewrite.load',
-    notify => Service['apache2-service'],
+    unless  => '/bin/readlink -e /etc/apache2/mods-enabled/rewrite.load',
+    require => Package['apache2'],
+    notify  => Service['apache2-service'],
   }
 }
