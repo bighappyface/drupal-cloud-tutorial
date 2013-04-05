@@ -10,12 +10,11 @@ class drupalstack::drupalapp {
   file { '/var/www/drupal/sites/default/settings.php':
     ensure => present,
     source => 'file:///var/www/drupal/sites/default/default.settings.php',
-    before => File['/var/www/drupal/sites/default'],
   }
 
   file { '/var/www/drupal/sites/default':
-    ensure  => directory,
     mode    => '664',
     recurse => true,
+    before => File['/var/www/drupal/sites/default/settings.php'],
   }
 }
