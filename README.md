@@ -12,6 +12,10 @@ A cloud account is **not** required. A local virtual machine, remote virtual mac
 
 If you do not have a cloud account it is [free to sign up for the Rackspace Cloud](https://cart.rackspace.com/cloud/).
 
+#### Don't forget!
+
+If you are using a cloud account it is important to remember that it costs money. While you only pay for what you use, please remember that simply leaving a VM running will incur costs. Once you are done with this tutorial, please delete your cloud servers and/or cloud databases.
+
 ## Tools and components used
 
 - Linux ([Ubuntu](http://www.ubuntu.com/ubuntu))
@@ -81,11 +85,21 @@ All Puppet modules from the [Puppet Forge](http://forge.puppetlabs.com/) will be
 puppet apply -e "include drupalstack::apache"
 ```
 
+[View the Puppet class source](https://github.com/bighappyface/drupal-cloud-tutorial/blob/master/drupalstack/manifests/apache.pp)
+
+This class follows a standard pattern in Puppet: [Package/File/Service](http://docs.puppetlabs.com/learning/ordering.html#packagefileservice).
+
+Viewing the code in the manifest we see that it will install the apache2 package, copy over our drupal.conf file into the default Apache site, start the apache2 service, and enable mod_rewrite.
+
 ### 7. Install PHP
 
 ```bash
 puppet apply -e "include drupalstack::php"
 ```
+
+[View the Puppet class source](https://github.com/bighappyface/drupal-cloud-tutorial/blob/master/drupalstack/manifests/php.pp)
+
+This class is very simple: install PHP and the necessary extensions for Drupal. Also, it installs libapache2-mod-php5 to ensure Apache and PHP work together.
 
 ### 8. Install and centralize Drupal core
 
@@ -93,11 +107,27 @@ puppet apply -e "include drupalstack::php"
 puppet apply -e "include drupalstack::drupalcore"
 ```
 
+[View the Puppet class source](https://github.com/bighappyface/drupal-cloud-tutorial/blob/master/drupalstack/manifests/drupalcore.pp)
+
+This class installs Drupal Core in a central location, */opt/Drupal*, and creates a symlink titled *current* to point to the desired version. This is the beginning of a common practice of using a single Drupal install in a multi-site environment without storing Drupal Core in version control along with your application.
+
+Also, this technique provides a simple method of upgrading/downgrading Drupal Core without modifying or deploying your application code.
+
+To change Drupal Core, simply update the "$drupal_version" variable to the desired version and run the class.
+
 ### 9. Configure our Drupal requirements
 
 ```bash
 puppet apply -e "include drupalstack::drupalapp"
 ```
+
+[View the Puppet class source](https://github.com/bighappyface/drupal-cloud-tutorial/blob/master/drupalstack/manifests/drupalapp.pp)
+
+This class provides the most common final steps of setting up a new Drupal site. First, it copies our application code from within our drupalstack class into the path specified by the Apache vhost.
+
+Next, it copies the default.settings.php file into the appropriate settings.php file and sets the permissions necessary for the Drupal installation process to update the settings.
+
+Lastly, it creates our *files* directory used for storing site media and sets permissions necessary to ensure we can write to it from within our Drupal application.
 
 ### That's it!
 
@@ -162,4 +192,8 @@ The steps above show each phase of configuring a server and deploying our applic
 - For deployment, could offerings such as [Cloud Backup](http://www.rackspace.com/cloud/backup/), [Cloud Load Balancers](http://www.rackspace.com/cloud/load-balancing/), and [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring/) be integrated to improve your applications stability, scalability, and reliability?
 
 The answer to these questions is **yes** and you have used some of the tools and technologies to build amazing and performant applications in the cloud. The paths forward are many and the next step is to follow them and learn.
+
+#### Don't forget!
+
+As mentioned above, if you used a cloud account for this tutorial don't leave the servers/databases running unless you wish to pay for them. Even if they are not being used, they will incur a cost.
 
