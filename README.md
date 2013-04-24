@@ -1,8 +1,6 @@
 # Drupal in the cloud - Tutorial
 
-Do you have one or several Drupal applications hosted on shared or dedicated hardware? Do you have multiple configurations and applications sharing or straining server resources? Are you considering the cloud, concerned how it will affect your Drupal applications, and curious how the various cloud and automation tools can help you get started quickly?
-
-In this tutorial I will show you how to get that Drupal application from running on that old hardware and get it flyin' in the cloud.
+Whether you have one or several Drupal applications hosted on shared or dedicated hardware, or multiple configurations and applications sharing or straining server resources, it may be time to consider a cloud hosting option. In this tutorial I will not only show you how to get that Drupal application from running on that old hardware but also give you some automation tools to get it flyin' in the cloud.
 
 These steps will show take you from a fresh server instance to a fully functional Drupal application using some of the latest technologies and services used in the cloud.
 
@@ -10,13 +8,9 @@ These steps will show take you from a fresh server instance to a fully functiona
 
 A cloud account is **not** required. A local virtual machine, remote virtual machine, or even dedicated physical server can be used. This tutorial focuses more on development, deployment, and automation paradigms; however, DBaaS and other cloud-related services work well and are easy to setup.
 
-If you do not have a cloud account it is [free to sign up for the Rackspace Cloud](https://cart.rackspace.com/cloud/).
+If you want to walk through this tutorial in the cloud, feel free to [sign up for the Rackspace Cloud](https://cart.rackspace.com/cloud/). But don't forget: if you are using a cloud account it is important to remember that it costs money. While you only pay for what you use, please remember that simply leaving a VM running will incur costs. Once you are done with this tutorial, please delete your cloud servers and/or cloud databases.
 
-#### Don't forget!
-
-If you are using a cloud account it is important to remember that it costs money. While you only pay for what you use, please remember that simply leaving a VM running will incur costs. Once you are done with this tutorial, please delete your cloud servers and/or cloud databases.
-
-## Tools and components used
+## We will be using these tools in this tutorial:
 
 - Linux ([Ubuntu](http://www.ubuntu.com/ubuntu))
 - [Apache HTTP Server](http://httpd.apache.org/)
@@ -27,15 +21,7 @@ If you are using a cloud account it is important to remember that it costs money
 
 ## Prerequisites
 
-First, a fresh cloud server instance (or other server) **running Ubuntu, with root or sudo access**.
-
-Try a Rackspace Cloud Server: [Rackspace Cloud Essentials 2 - Creating A Cloud Server](http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-2-creating-a-cloud-server)
-
-Second, a fresh database. Have the host and user credentials handy to complete the Drupal install.
-
-Try a Rackspace Cloud Database: [Cloud Databases - How It Works](http://www.rackspace.com/cloud/databases/howitworks/)
-
-That's it! Now that you have these items, lets begin.
+To get started, you need a fresh cloud server instance (or other server) running Ubuntu, with root or sudo access. You will also need a fresh database, with the host and user credentials handy to complete the Drupal install. That's it! Now that you have these items, lets begin.
 
 ## Steps
 
@@ -123,19 +109,11 @@ puppet apply -e "include drupalstack::drupalapp"
 
 [View the Puppet class source](https://github.com/bighappyface/drupal-cloud-tutorial/blob/master/drupalstack/manifests/drupalapp.pp)
 
-This class provides the most common final steps of setting up a new Drupal site. First, it copies our application code from within our drupalstack class into the path specified by the Apache vhost.
+This class provides the most common final steps of setting up a new Drupal site. First, it copies our application code from within our drupalstack class into the path specified by the Apache vhost. Next, it copies the default.settings.php file into the appropriate settings.php file and sets the permissions necessary for the Drupal installation process to update the settings. Finally, it creates our *files* directory used for storing site media and sets permissions necessary to ensure we can write to it from within our Drupal application.
 
-Next, it copies the default.settings.php file into the appropriate settings.php file and sets the permissions necessary for the Drupal installation process to update the settings.
+## Lessons Learned
 
-Lastly, it creates our *files* directory used for storing site media and sets permissions necessary to ensure we can write to it from within our Drupal application.
-
-### That's it!
-
-Please visit the Drupal installation wizard on your server using a browser.
-
-## Lessons
-
-Again, few special techniques and paradigms are used in this tutorial related to development, deployment, and automation.
+Again, few special techniques and paradigms are used in this tutorial related to development, deployment and automation.
 
 ### Development
 
@@ -163,7 +141,7 @@ Our Puppet module provides a convenient and reliable method for maintaining our 
 
 ---
 
-The options and possibilities facilitated with these technique are endless. This example is but a brief glimpse into the power behind these techniques, especially automation.
+The options and possibilities facilitated with this technique are endless. This example is but a brief glimpse into the power behind these techniques, especially automation.
 
 To drive the point home, here is a bonus!
 
