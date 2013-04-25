@@ -1,16 +1,16 @@
-# Drupal in the cloud - Tutorial
+# Drupal In The Cloud - Tutorial
 
-Whether you have one or several Drupal applications hosted on shared or dedicated hardware, or multiple configurations and applications sharing or straining server resources, it may be time to consider a cloud hosting option. In this tutorial I will not only show you how to get that Drupal application from running on that old hardware but also give you some automation tools to get it flyin' in the cloud.
+Whether you have one or several Drupal applications hosted on shared or dedicated hardware, or multiple configurations and applications sharing or straining server resources, it may be time to consider a cloud hosting option. In this tutorial I will show you how to get that Drupal application from running on that old hardware and also give you some automation tools to get it flyin' in the cloud.
 
 These steps will show take you from a fresh server instance to a fully functional Drupal application using some of the latest technologies and services used in the cloud.
 
 ### No cloud account? No problem.
 
-A cloud account is **not** required. A local virtual machine, remote virtual machine, or even dedicated physical server can be used. This tutorial focuses more on development, deployment, and automation paradigms; however, DBaaS and other cloud-related services work well and are easy to setup.
+A cloud account is **not** required. A local virtual machine, a remote virtual machine or even a dedicated physical server can be used. This tutorial focuses more on development, deployment and automation paradigms; however, DBaaS and other cloud-related services work well and are easy to setup.
 
 If you want to walk through this tutorial in the cloud, feel free to [sign up for the Rackspace Cloud](https://cart.rackspace.com/cloud/). But don't forget: if you are using a cloud account it is important to remember that it costs money. While you only pay for what you use, please remember that simply leaving a VM running will incur costs. Once you are done with this tutorial, please delete your cloud servers and/or cloud databases.
 
-## We will be using these tools in this tutorial:
+## We will use these tools in this tutorial:
 
 - Linux ([Ubuntu](http://www.ubuntu.com/ubuntu))
 - [Apache HTTP Server](http://httpd.apache.org/)
@@ -75,7 +75,7 @@ puppet apply -e "include drupalstack::apache"
 
 This class follows a standard pattern in Puppet: [Package/File/Service](http://docs.puppetlabs.com/learning/ordering.html#packagefileservice).
 
-Viewing the code in the manifest we see that it will install the apache2 package, copy over our drupal.conf file into the default Apache site, start the apache2 service, and enable mod_rewrite.
+Viewing the code in the manifest we see that it will install the apache2 package, copy over our drupal.conf file into the default Apache site, start the apache2 service and enable mod_rewrite.
 
 ### 7. Install PHP
 
@@ -135,9 +135,9 @@ Our Drupal application is wrapped within a Puppet module that defines the full a
 
 Our Puppet module provides a convenient and reliable method for maintaining our application configurations and dependencies. The benefits of this approach include:
 
-1. Application-specific package, service, and file inventory and documentation
+1. Application-specific package, service and file inventory and documentation
 2. Configuration under version control to adapt dependencies with application overtime
-3. Limitless expansion and enhancement options for logging, monitoring, caching, and 
+3. Limitless expansion and enhancement options for logging, monitoring and caching
 
 ---
 
@@ -147,7 +147,7 @@ To drive the point home, here is a bonus!
 
 ## Bonus
 
-Drupal in the cloud runs great, with a dedicated application server and (hopefully) separate database or DBaaS instance; however, with a single server instance running a single application, come resources must be available to make our application really fly!
+Drupal in the cloud runs great, with a dedicated application server and (hopefully) separate database or DBaaS instance; however, with a single server instance running a single application, some resources must be available to make our application really fly!
 
 Enter Varnish cache, an HTTP accelerator. We can install it on our server using a Drupal-specific configuration and store the raw HTTP output of our application in memory, along with all resources.
 
@@ -167,11 +167,11 @@ The steps above show each phase of configuring a server and deploying our applic
 
 - After reviewing the Puppet manifests, can you think of a class that could combine these steps into a single step?
 - With tools like Vagrant, could we tie our Puppet module into a provisioning service to automate spawning instances and applying our module?
-- For deployment, could offerings such as [Cloud Backup](http://www.rackspace.com/cloud/backup/), [Cloud Load Balancers](http://www.rackspace.com/cloud/load-balancing/), and [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring/) be integrated to improve your applications stability, scalability, and reliability?
+- For deployment, could offerings such as [Cloud Backup](http://www.rackspace.com/cloud/backup/), [Cloud Load Balancers](http://www.rackspace.com/cloud/load-balancing/), and [Cloud Monitoring](http://www.rackspace.com/cloud/monitoring/) be integrated to improve your applications stability, scalability and reliability?
 
 The answer to these questions is **yes** and you have used some of the tools and technologies to build amazing and performant applications in the cloud. The paths forward are many and the next step is to follow them and learn.
 
 #### Don't forget!
 
-As mentioned above, if you used a cloud account for this tutorial don't leave the servers/databases running unless you wish to pay for them. Even if they are not being used, they will incur a cost.
+As mentioned above, if you used a cloud account for this tutorial don't leave the servers or databases running unless you wish to pay for them. Even if they are not being used, they will incur a cost.
 
